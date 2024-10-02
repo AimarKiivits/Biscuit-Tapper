@@ -1,0 +1,73 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.navbar {
+  background-color: #282c34;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  height: 10%;
+}
+
+.user_area {
+  display: flex;
+  align-items: center;
+}
+
+.user_area button {
+  padding: 5px;
+  margin: 5px;
+}
+
+.login, .register {
+  background-color: #000000;
+  color: white;
+  padding: 30px 40px 50px 40px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  width: 300px;
+  text-align: center;
+}
+
+.login form {
+  margin: 0px 0px 10px;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+
+label {
+  color: white;
+  font-size: 14px;
+  text-align: left;
+  display: block;
+}
