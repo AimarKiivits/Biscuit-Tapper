@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../App.css';
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
@@ -35,7 +35,7 @@ const Login = () => {
             </form>
             <a href="/register">Register</a>
             <br></br>
-            <a href="/">Home</a>
+            <Link to="/">Home</Link>
         </div>
     );
 }

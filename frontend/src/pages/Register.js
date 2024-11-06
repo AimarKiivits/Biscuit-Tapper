@@ -1,7 +1,7 @@
 import React from "react";
 import '../App.css';
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -31,6 +31,7 @@ const Register = () => {
             <a href="/login">Login</a>
             <br></br>
             <a href="/">Home</a>
+            <Link to="/login">Login</Link>
         </div>
     );
 }
