@@ -6,7 +6,6 @@ import useAuth from "../hooks/useAuth";
 const Home = () => {
     const navigate = useNavigate();
     const { data } = useAuth();
-    console.log(data)
 
     return (
         <div>

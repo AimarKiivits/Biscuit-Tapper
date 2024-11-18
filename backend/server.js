@@ -4,18 +4,21 @@ const cors = require('cors');
 const port = 5000;
 const auth = require('./auth');
 const register = require('./register');
+const upgrades = require('./upgrades');
 
 app.use(cors());
 app.use(express.json());
 
 app.post('/login', (req, res) => {
     auth.login(req, res);
-    console.log(req.body);
 });
 
 app.post('/register', (req, res) => {
-    console.log(req.body);
     register.register(req, res);
+});
+
+app.get('/upgrades', (req, res) => {
+    res.json({ clicker: 0, oven: 0 });
 });
 
 app.listen(port, () => {
