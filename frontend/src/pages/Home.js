@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
 import useAuth from "../hooks/useAuth";
@@ -6,7 +6,6 @@ import useAuth from "../hooks/useAuth";
 const Home = () => {
     const navigate = useNavigate();
     const { data } = useAuth();
-
     return (
         <div>
         {data.auth ? (

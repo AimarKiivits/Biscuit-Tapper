@@ -24,6 +24,10 @@ const login = async (req, res) => {
             { expiresIn: '1h' }
         );
 
+        const token = jwt.decode(accessToken);
+        console.log(token);
+        console.log(Date.now());
+
         res.json({ accessToken });
     }
 }
