@@ -18,17 +18,13 @@ const login = async (req, res) => {
         res.status(401).json({ message: 'Invalid credentials' });
     }
     if (validPassword) {
+        const user_id = await pool.query('SELECT id FROM users WHERE username = ?', [username]);
         const accessToken = jwt.sign(
-            { username: user[0][0].username },
+            { username: user[0][0].username, user_id: user_id[0][0].id },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
-
-        const token = jwt.decode(accessToken);
-        console.log(token);
-        console.log(Date.now());
-
-        res.json({ accessToken });
+        res.json({ accessToken, user_id: user_id[0][0].id });
     }
 }
 

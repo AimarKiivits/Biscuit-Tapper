@@ -1,11 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
 import useAuth from "../hooks/useAuth";
 
 const Home = () => {
     const navigate = useNavigate();
-    const { data } = useAuth();
+    const { data, setData } = useAuth();
+
+    const logout = () => {
+        setData({});
+        localStorage.removeItem('token');
+        navigate("/");
+    }
+
     return (
         <div>
         {data.auth ? (
@@ -15,6 +22,9 @@ const Home = () => {
                 </div>
                 <div> 
                     <p className="quip">Totally original game</p>
+                </div>
+                <div>
+                        <button onClick={logout}>Log out</button>
                 </div>
             </div>
         ) : (

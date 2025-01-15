@@ -17,8 +17,12 @@ app.post('/register', (req, res) => {
     register.register(req, res);
 });
 
-app.get('/upgrades', (req, res) => {
-    res.json({ clicker: 0, oven: 0 });
+app.get('/upgrades/:id', (req, res) => {
+    upgrades.getUpgrades(req, res);
+});
+
+app.post('/save/:id', (req, res) => {
+    upgrades.saveUpgrades(req, res);
 });
 
 app.listen(port, () => {

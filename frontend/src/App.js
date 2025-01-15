@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
@@ -13,7 +14,12 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      setData({ auth: true });
+      const decoded = jwtDecode(token);
+      const auth = true;
+      const user_id = decoded.user_id;
+      setData({ auth, user_id });
+    } else {
+      setData({});
     }
   }, [setData]);
 

@@ -16,9 +16,10 @@ const Login = () => {
             username: username,
             password: password
         }).then((response) => {
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('token', response.data.accessToken);
             const auth = true
-            setData({ auth })
+            const user_id = response.data.user_id
+            setData({ auth, user_id });
             navigate("/");
         }).catch((error) => {
             console.log(error);
