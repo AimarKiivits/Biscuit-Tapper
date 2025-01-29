@@ -18,7 +18,7 @@ const Home = () => {
         {data.auth ? (
             <div> 
                 <div>
-                    <button onClick={() => navigate('/game')}>Play</button>
+                    <button className="button" onClick={() => navigate('/game')}>Play</button>
                 </div>
                 <div> 
                     <p className="quip">Totally original game</p>

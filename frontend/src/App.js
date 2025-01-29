@@ -17,7 +17,8 @@ function App() {
       const decoded = jwtDecode(token);
       const auth = true;
       const user_id = decoded.user_id;
-      setData({ auth, user_id });
+      const ready = true;
+      setData({ auth, user_id, ready });
     } else {
       setData({});
     }

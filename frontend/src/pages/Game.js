@@ -4,6 +4,7 @@ import '../App.css'
 import axios from "axios";
 import useAuth from "../hooks/useAuth";
 
+
 const Game = () => {
     const { data, setData } = useAuth();
     const navigate = useNavigate();
@@ -12,15 +13,34 @@ const Game = () => {
     const [ user_upgrades, setUser_Upgrades ] = useState({});
     const [ current_upgrades, setCurrent_Upgrades ] = useState({});
     const [ prices, setPrices ] = useState({});
+    const [ leaderboard, setLeaderboard ] = useState([]);
 
     //gets upgrades from database
 
     useEffect(() => {
-        axios.get(`/upgrades/${data.user_id}`).then((response) => {
-            setUser_Upgrades(response.data);
-        }).catch((error) => {
-            console.log(error);
-        });
+        if (data.ready === true) {
+            axios.get(`/upgrades/${data.user_id}`).then((response) => {
+                setUser_Upgrades(response.data.upgrades);
+                setClicks(response.data.click_amount);
+            }).catch((error) => {
+                console.log(error);
+            });
+
+            axios.get(`/leaderboard`).then((response) => {
+                console.log(response.data.leaderboard);
+                setLeaderboard(response.data.leaderboard.map((entry, index) => {
+                    return (
+                        <div key={index}>
+                            <h1>{index + 1}. {entry.username} - {entry.click_amount}</h1>
+                        </div>
+                    )
+                }));
+            }).catch((error) => {
+                console.log(error);
+            })
+        } else {
+            console.log("data not ready");
+        }
     }, [data]);
     
     //sets upgrades to current upgrades and sets prices during first load
@@ -73,7 +93,7 @@ const Game = () => {
     useEffect(() => {
         if (shouldSave && user_upgrades !== null) {
             axios
-                .post(`/save/${data.user_id}`, user_upgrades)
+                .post(`/save/${data.user_id}`, { user_upgrades: user_upgrades, clicks: clicks })
                 .then((response) => {
                     console.log(response.data);
                 })
@@ -111,7 +131,7 @@ const Game = () => {
     useEffect(() => {
         const added = current_upgrades.oven || 0;
         const interval = setInterval(() => {
-            setClicks(prevClicks => prevClicks + added);
+            setClicks(prevClicks => prevClicks += added);
         }, 1000);
 
         return () => clearInterval(interval);
@@ -141,22 +161,44 @@ const Game = () => {
     }
 
     return (
-        <div>
-            <div>
-                <button onClick={() => resethandler()}>Reset</button>
-                <button onClick={() => savehandler()}>Save upgrades</button>
+        <div className="game">
+            <div className="click_area">
+                <div className="title">
+                    <h1>Biscuit Tapper</h1>
+                </div>
+                <div className="click_info">
+                    <h1>Clicks: {clicks}</h1>
+                    <h1>Clicks per second: {current_upgrades.oven}</h1>
+                </div>
+                <div className="click_button">
+                    <button onClick={clickhandler}>
+                        <img src="/Biscuit.png" alt=""></img>
+                    </button>
+                </div>
             </div>
-            <div>
-                <h1>Clicks: {clicks}</h1>
-                <h2>Clicks per second: {current_upgrades.oven}</h2>
-                <button onClick={clickhandler}><img src="/Biscuit.png"></img></button>
+
+            <div className="upgrades_area">
+                <div className="title">
+                    <h1>Upgrades</h1>
+                </div>
+                <button className="button" onClick={() => upgradehandler('clicker')}>Upgrade clicks: {prices.clicker}      amount: {current_upgrades.clicker}</button>
+                <button className="button" onClick={() => upgradehandler('oven')}>Upgrade ovens: {prices.oven}      amount: {current_upgrades.oven}</button>
             </div>
-            <div>
-                <button onClick={() => upgradehandler('clicker')}>Upgrade clicks: {prices.clicker}      amount: {current_upgrades.clicker}</button>
-                <button onClick={() => upgradehandler('oven')}>Upgrade ovens: {prices.oven}      amount: {current_upgrades.oven}</button>
-            </div>
-            <div>
-                <button onClick={logout}>Log out</button>
+                
+            <div className="stats_area">
+                <div className="Navbar">
+                    <button className="button" onClick={() => resethandler()}>Reset</button>
+                    <button className="button" onClick={() => savehandler()}>Save upgrades</button>
+                    <button className="button" onClick={logout}>Log out</button>
+                </div>
+                <div className="Leaderboard">
+                    <div className="title">
+                        <h1>Leaderboard</h1>
+                    </div>
+                    <div className="leaderboard_area">
+                        {leaderboard}
+                    </div>
+                </div>
             </div>
         </div>
     )

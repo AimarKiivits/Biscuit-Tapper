@@ -5,6 +5,7 @@ const port = 5000;
 const auth = require('./auth');
 const register = require('./register');
 const upgrades = require('./upgrades');
+const leaderboard = require('./leaderboard');
 
 app.use(cors());
 app.use(express.json());
@@ -23,6 +24,10 @@ app.get('/upgrades/:id', (req, res) => {
 
 app.post('/save/:id', (req, res) => {
     upgrades.saveUpgrades(req, res);
+});
+
+app.get('/leaderboard', (req, res) => {
+    leaderboard.getLeaderboard(req, res);
 });
 
 app.listen(port, () => {

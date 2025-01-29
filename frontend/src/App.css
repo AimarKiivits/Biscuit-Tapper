@@ -6,25 +6,6 @@
   width: 100%;
 }
 
-.navbar {
-  background-color: #282c34;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  height: 10%;
-}
-
-.user_area {
-  display: flex;
-  align-items: center;
-}
-
-.user_area button {
-  padding: 5px;
-  margin: 5px;
-}
-
 .login, .register {
   background-color: #000000;
   color: white;
@@ -50,7 +31,7 @@ input[type="text"], input[type="password"] {
 }
 
 button {
-  width: 100%;
+  width: 80%;
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -60,7 +41,7 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+.button:hover {
   background-color: #45a049;
 }
 
@@ -70,4 +51,121 @@ label {
   font-size: 14px;
   text-align: left;
   display: block;
+}
+
+.game {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.click_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+  border-right: #000000 1px solid;
+}
+
+.title {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  margin: 2% 2%;
+}
+
+.click_info {
+  width: 100%;
+  height: 5%;
+  padding: 0% 2%;
+  font-size: 0.7rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.click_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  padding-top: 5%;
+}
+
+.click_button button {
+  width: 90%;
+  height: 90%;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.click_button img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.upgrades_area {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  
+  flex-direction: column;
+  border-right: #000000 1px solid;
+  align-items: center;
+}
+
+.stats_area {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  width: 100%;
+  background-color: #000000;
+  color: white;;
+}
+
+.Navbar button {
+  color: white;
+  width: 30%;
+  font-size: 1rem;
+  padding: 1%;
+  margin: 0% 2%;
+}
+
+.Leaderboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 0% 2%;
+}
+
+.leaderboard_area {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000000;
+  color: white;
+  border-radius: 5%;
+  margin-bottom: 4%;
 }

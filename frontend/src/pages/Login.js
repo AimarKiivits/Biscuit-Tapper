@@ -8,6 +8,7 @@ import useAuth from "../hooks/useAuth";
 const Login = () => {
     const navigate = useNavigate();
     const { data, setData } = useAuth();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         const username = e.target[0].value;
@@ -19,7 +20,8 @@ const Login = () => {
             localStorage.setItem('token', response.data.accessToken);
             const auth = true
             const user_id = response.data.user_id
-            setData({ auth, user_id });
+            const ready = true
+            setData({ auth, user_id, ready });
             navigate("/");
         }).catch((error) => {
             console.log(error);

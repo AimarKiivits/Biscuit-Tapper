@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth";
 const Register = () => {
     const navigate = useNavigate();
     const { data, setData } = useAuth();
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         const username = e.target[0].value;
