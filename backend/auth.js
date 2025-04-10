@@ -6,25 +6,35 @@ require('dotenv').config();
 
 const login = async (req, res) => {
     const { username, password } = req.body;
+    
     if (!username || !password) {
-        res.status(400).json({ message: 'Please provide a username and password' });
+        return res.status(400).json({ message: 'Please provide a username and password' });
     }
-    const user = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
-    if (user[0].length === 0) {
-        res.status(401).json({ message: 'Invalid credentials' });
-    }
-    const validPassword = await bcrypt.compare(password, user[0][0].password);
-    if (!validPassword) {
-        res.status(401).json({ message: 'Invalid credentials' });
-    }
-    if (validPassword) {
-        const user_id = await pool.query('SELECT id FROM users WHERE username = ?', [username]);
-        const accessToken = jwt.sign(
-            { username: user[0][0].username, user_id: user_id[0][0].id },
-            process.env.JWT_SECRET,
-            { expiresIn: '1h' }
-        );
-        res.json({ accessToken, user_id: user_id[0][0].id });
+    
+    try {
+        const [userRows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+        const user = userRows[0];
+
+        if (!user) {
+            return res.status(401).json({ message: 'This user does not exist' });
+        } else {
+            const validPassword = await bcrypt.compare(password, user.password);
+
+            if (!validPassword) {
+                return res.status(401).json({ message: 'Invalid credentials' });
+            }
+
+            const accessToken = jwt.sign(
+                { username: user.username, user_id: user.id },
+                process.env.JWT_SECRET,
+                { expiresIn: '1h' }
+            );
+
+            return res.json({ accessToken, user_id: user.id });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Internal server error' });
     }
 }
 
